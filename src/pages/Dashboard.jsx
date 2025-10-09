@@ -15,7 +15,7 @@ import {
 } from "lucide-react";
 
 // --- Constants ---
-const API_BASE_URL = "http://localhost:3000/api";
+import { API_BASE_URL } from "../../config";
 
 const COLORS = {
   DeepTeal: "#007A8A",

@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { LogIn, User, Lock } from "lucide-react";
 import InputField from "../components/InputField";
 
+import { API_BASE_URL } from "../../config";
+
 const Login = () => {
   const [formData, setFormData] = useState({
     email: "", // Can be email or username
@@ -24,7 +26,7 @@ const Login = () => {
   setError(null);
 
   try {
-    const response = await fetch("http://localhost:3000/api/auth/login-admin", {
+    const response = await fetch(`${API_BASE_URL}/api/auth/login-admin`, {
   method: "POST",
   headers: { "Content-Type": "application/json" },
   body: JSON.stringify(formData),

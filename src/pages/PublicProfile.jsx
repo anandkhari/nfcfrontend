@@ -167,7 +167,7 @@ const PublicProfile = () => {
   const [vcfUrl, setVcfUrl] = useState("#");
 
   // Update to your server base URL in production
-  const API_BASE_URL = "http://localhost:3000";
+  import { API_BASE_URL } from "../../../config";
 
   // Fetch Profile Data
  useEffect(() => {
