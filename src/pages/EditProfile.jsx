@@ -28,7 +28,7 @@ const SOCIAL_PLATFORMS = [
 ];
 const PHONE_TYPES = [ { label: "Personal", icon: UserCircle }, { label: "Work", icon: Building }, { label: "Mobile", icon: Smartphone }];
 const MAX_IMAGES = 5;
-import { API_BASE_URL } from "../../../config";
+import { API_BASE_URL } from "../../config";
 const formInputStyles = "h-10 rounded-lg border bg-canvas-gray focus:border-action-blue focus:ring-2 focus:ring-blue-500/20";
 const labelTextStyles = "text-sm font-medium text-gray-600";
 

@@ -16,7 +16,7 @@ import { FaInstagram, FaFacebookF, FaYoutube, FaLinkedinIn, FaTwitter, FaTelegra
 import {
     Layers, Palette, UserCircle, Contact, Images as ImagesIcon, Share2, CheckCircle, Plus, Trash2, Camera, UploadCloud, Link, X, Image as ImageIcon, Save, Smartphone, ChevronLeft, ChevronRight, UserPlus, Globe, MapPin, Building, Phone, Mail
 } from "lucide-react";
-
+import { API_BASE_URL } from "../../config";
 // --- Constants ---
 const SOCIAL_PLATFORMS = [
     { key: "instagram", name: "Instagram", icon: FaInstagram, color: "#E4405F" },
@@ -28,7 +28,7 @@ const SOCIAL_PLATFORMS = [
 ];
 const PHONE_TYPES = [ { label: "Personal", icon: UserCircle }, { label: "Work", icon: Building }, { label: "Mobile", icon: Smartphone }];
 const MAX_IMAGES = 5;
-import { API_BASE_URL } from "../../../config";
+
 const API_ENDPOINT = `${API_BASE_URL}/api/profile`;
 const formInputStyles = "h-10 rounded-lg border bg-canvas-gray focus:border-action-blue focus:ring-2 focus:ring-blue-500/20";
 const labelTextStyles = "text-sm font-medium text-gray-600";

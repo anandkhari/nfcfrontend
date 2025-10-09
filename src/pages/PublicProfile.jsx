@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router-dom"; 
+import { API_BASE_URL } from "../../config"; 
+ 
 import {
   Phone,
   Mail,
@@ -167,7 +169,7 @@ const PublicProfile = () => {
   const [vcfUrl, setVcfUrl] = useState("#");
 
   // Update to your server base URL in production
-  import { API_BASE_URL } from "../../../config";
+
 
   // Fetch Profile Data
  useEffect(() => {
