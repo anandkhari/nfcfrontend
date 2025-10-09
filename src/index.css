@@ -1,0 +1,77 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  --color-background: var(--page-bg);
+  --color-foreground: var(--text-primary);
+  --color-card: var(--surface-white);
+  --color-card-foreground: var(--text-primary);
+  --color-popover: var(--surface-white);
+  --color-popover-foreground: var(--text-primary);
+  --color-primary: var(--brand-teal);
+  --color-primary-foreground: var(--surface-white);
+  --color-secondary: var(--action-blue);
+  --color-secondary-foreground: var(--surface-white);
+  --color-muted: var(--canvas-gray);
+  --color-muted-foreground: var(--text-muted);
+  --color-accent: var(--action-blue);
+  --color-accent-foreground: var(--surface-white);
+  --color-destructive: var(--success-green);
+  --color-border: var(--canvas-gray);
+  --color-input: var(--surface-white);
+  --color-ring: var(--brand-teal-8);
+  --color-chart-1: var(--brand-teal);
+  --color-chart-2: var(--action-blue);
+  --color-chart-3: var(--success-green);
+  --color-chart-4: var(--brand-teal-8);
+  --color-chart-5: var(--action-blue);
+  --color-sidebar: var(--surface-white);
+  --color-sidebar-foreground: var(--text-primary);
+  --color-sidebar-primary: var(--brand-teal);
+  --color-sidebar-primary-foreground: var(--surface-white);
+  --color-sidebar-accent: var(--action-blue);
+  --color-sidebar-accent-foreground: var(--surface-white);
+  --color-sidebar-border: var(--canvas-gray);
+  --color-sidebar-ring: var(--brand-teal-8);
+}
+
+:root {
+  --radius: 0.625rem;
+  --page-bg: #f0f2f5;
+  --surface-white: #ffffff;
+  --text-primary: #0f1724;
+  --text-muted: #6b7280;
+  --brand-teal: #007a8a;
+  --brand-teal-8: rgba(0, 122, 138, 0.08);
+  --action-blue: #00aeef;
+  --success-green: #4caf50;
+  --canvas-gray: #f7f8fc;
+}
+
+.dark {
+  --page-bg: #0f1724;
+  --surface-white: #1e293b;
+  --text-primary: #ffffff;
+  --text-muted: #6b7280;
+  --brand-teal: #007a8a;
+  --brand-teal-8: rgba(0, 122, 138, 0.08);
+  --action-blue: #00aeef;
+  --success-green: #4caf50;
+  --canvas-gray: #1e293b;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground font-sans;
+  }
+}
