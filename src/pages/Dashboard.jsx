@@ -12,7 +12,9 @@ import {
   LogOut,
   TrendingUp,
   Loader2,
-} from "lucide-react";
+} from "lucide-react"; 
+import { toast } from "react-toastify";  
+import "react-toastify/dist/ReactToastify.css"; 
 
 // --- Constants ---
 import { API_BASE_URL } from "../../config";
@@ -46,7 +48,7 @@ const Dashboard = () => {
       setError(null);
 
       try {
-        const response = await fetch(`${API_BASE_URL}/profile`, {
+        const response = await fetch(`${API_BASE_URL}/api/profile`, {
           method: "GET",
           credentials: "include", // ✅ sends HTTP-only cookie if present
         });
@@ -118,7 +120,11 @@ const Dashboard = () => {
     } finally {
       // If you stored something in localStorage previously, clear it
       localStorage.removeItem("token");
-      alert("✅ Logout Successful! Redirecting...");
+      
+      toast.success("✅ Logout Successful! Redirecting...", {
+        position: "top-right",
+        autoClose: 2000, // optional, toast will auto-close in 2s
+      });
       navigate("/login");
       setIsLoggingOut(false);
     }

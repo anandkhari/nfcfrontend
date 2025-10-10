@@ -1,18 +1,24 @@
 import React, { useState } from "react";
-import { LogIn, User, Lock } from "lucide-react";
-import InputField from "../components/InputField";
-
+import { LogIn, User, Lock, Eye, EyeOff } from "lucide-react";
+import InputField from "../components/InputField"; 
+import { toast } from "react-toastify";  
+import "react-toastify/dist/ReactToastify.css"; 
 import { API_BASE_URL } from "../../config";
+import { useNavigate } from "react-router-dom";
 
-const Login = () => {
+
+
+
+const Login = () => { 
   const [formData, setFormData] = useState({
-    email: "", // Can be email or username
+    email: "",
     password: "",
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();  
 
-  // Handles input change (updates state for both fields)
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -21,46 +27,50 @@ const Login = () => {
   };
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
-  setLoading(true);
-  setError(null);
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
 
-  try {
-    const response = await fetch(`${API_BASE_URL}/api/auth/login-admin`, {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify(formData),
-  credentials: "include"
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/auth/login-admin`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+        credentials: "include",
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "Login failed");
+      }
+
+      localStorage.setItem("token", data.token);
+
+      // Show toast first
+     // Show toast immediately
+toast.success("✅ Login Successful! Redirecting...", {
+  position: "top-right",
+  autoClose: 2000, // optional, toast will auto-close in 2s
 });
 
-    const data = await response.json();
+// Redirect immediately
+setTimeout(() => {
+  navigate("/"); 
+}, 500); 
 
-    if (!response.ok) {
-      throw new Error(data.message || "Login failed");
+
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
     }
-
-    // store token in localStorage
-    localStorage.setItem("token", data.token);
-
-    alert("✅ Login Successful! Redirecting...");
-    // redirect to dashboard
-    window.location.href = "/";
-
-  } catch (err) {
-    setError(err.message);
-  } finally {
-    setLoading(false);
-  }
-};
-
+  };
 
   return (
-    // Page container
     <div className="min-h-screen flex items-center justify-center p-4 bg-[#F7F8FC]">
       <div className="w-full max-w-md">
-        {/* Login Card */}
         <div className="bg-white p-8 sm:p-10 rounded-2xl shadow-2xl transition-all duration-300">
-          {/* Logo and Title */}
           <div className="flex flex-col items-center mb-8">
             <div className="text-center">
               <span className="text-2xl font-bold text-[#007A8A]">Scatch</span>
@@ -73,38 +83,41 @@ const Login = () => {
             </h2>
           </div>
 
-          {/* Error Message */}
           {error && (
             <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded-lg text-sm text-center">
               {error}
             </div>
           )}
 
-          {/* Login Form */}
           <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
             <div className="space-y-4">
-              {/* Email / Username Input */}
               <InputField
                 label="Email / Username"
                 name="email"
                 type="text"
                 icon={User}
-                value={formData.loginIdentifier}
+                value={formData.email}
                 onChange={handleChange}
               />
 
-              {/* Password Input */}
-              <InputField
-                label="Password"
-                name="password"
-                type="password"
-                icon={Lock}
-                value={formData.password}
-                onChange={handleChange}
-              />
+              <div className="relative">
+                <InputField
+                  label="Password"
+                  name="password"
+                  type={showPassword ? "text" : "password"}
+                  icon={Lock}
+                  value={formData.password}
+                  onChange={handleChange}
+                />
+                <span
+                  className="absolute right-3 top-[50%] transform -translate-y-1/2 cursor-pointer text-gray-500"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                </span>
+              </div>
             </div>
 
-            {/* Forgot Password */}
             <div className="text-sm text-right">
               <a
                 href="#"
@@ -114,7 +127,6 @@ const Login = () => {
               </a>
             </div>
 
-            {/* Submit Button */}
             <button
               type="submit"
               disabled={loading}

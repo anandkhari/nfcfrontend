@@ -1,11 +1,13 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Login from './pages/Login';
-import Dashboard from './pages/Dashboard'
+import Dashboard from './pages/Dashboard';
 import CreateProfile from './pages/CreateProfile';
 import ProfileLinkPage from './pages/ProfileLinkPage';
 import PublicProfile from './pages/PublicProfile';
-import EditProfile from './pages/EditProfile';
+import EditProfile from './pages/EditProfile'; 
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const ProtectedRoute = ({ children }) => {
   const token = localStorage.getItem('token');
@@ -13,42 +15,51 @@ const ProtectedRoute = ({ children }) => {
 };
 
 const App = () => {
-  return (
-    <Router>
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/profile/:profileId" element={<PublicProfile />} />
-        
-        <Route 
-          path="/" 
-          element={<ProtectedRoute><Dashboard /></ProtectedRoute>} 
-        />
-        
-        <Route 
-          path="/create-profile" 
-          element={<ProtectedRoute><CreateProfile /></ProtectedRoute>} 
+  return ( 
+    <>
+      <ToastContainer 
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        pauseOnHover
+        draggable
+        theme="colored"
+      />
+      <Router>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/profile/:profileId" element={<PublicProfile />} />
+          
+          <Route 
+            path="/" 
+            element={<ProtectedRoute><Dashboard /></ProtectedRoute>} 
+          />
+          
+          <Route 
+            path="/create-profile" 
+            element={<ProtectedRoute><CreateProfile /></ProtectedRoute>} 
+          />
 
-        />
+          <Route 
+            path="/edit-profile/:profileId" 
+            element={<ProtectedRoute><EditProfile /></ProtectedRoute>} 
+          />
+          
+          <Route 
+            path="/profile-link/:profileId" 
+            element={
+              <ProtectedRoute>
+                <ProfileLinkPage />
+              </ProtectedRoute>
+            } 
+          />
 
-        <Route 
-          path="/edit-profile/:profileId" 
-          element={<ProtectedRoute><EditProfile /></ProtectedRoute>} 
-        />
-        
-        {/* ✅ CORRECTED ROUTE */}
-        <Route 
-          path="/profile-link/:profileId" // 1. The dynamic parameter is part of the path
-          element={
-            <ProtectedRoute>
-              <ProfileLinkPage /> {/* 2. The correct component is placed inside */}
-            </ProtectedRoute>
-          } 
-        />
-
-        {/* This catch-all route is good for handling unknown URLs */}
-        <Route path="*" element={<Navigate to="/" />} />
-      </Routes>
-    </Router>
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
+      </Router>
+    </>
   );
 };
 
