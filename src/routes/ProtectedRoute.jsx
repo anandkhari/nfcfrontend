@@ -1,14 +1,28 @@
-// ProtectedRoute.jsx
-import { Navigate } from 'react-router-dom';
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "@/context/AuthContext";
+import Loader from "@/components/ui/loader";
 
 const ProtectedRoute = ({ children }) => {
-  const token = localStorage.getItem('token');
+  const { isAuthenticated, isLoading, hasFetched } = useAuth();
+  const navigate = useNavigate();
 
-  if (!token) {
-    return <Navigate to="/login" replace />;
+  useEffect(() => {
+    // redirect only AFTER we’ve checked auth
+    if (!isLoading && hasFetched && !isAuthenticated) {
+      navigate("/login");
+    }
+  }, [isAuthenticated, isLoading, hasFetched, navigate]);
+
+  if (isLoading || !hasFetched) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <Loader size={40} />
+      </div>
+    );
   }
 
-  return children;
+  return isAuthenticated ? children : null;
 };
 
 export default ProtectedRoute;

@@ -1,5 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700&display=swap');
+
+
 @import "tailwindcss";
 @import "tw-animate-css";
+
+
+:root {
+  --font-body: 'Inter', sans-serif;
+  --font-heading: 'Poppins', sans-serif;
+}
+
+@theme {
+  --color-brand-orange: #FF4F00;      /* Trueline's strong orange */
+  --color-brand-orange-dark: #E64600; /* For hover states */
+  --color-brand-dark: #1A1A1A;        /* For the sidebar */
+  --color-brand-dark-light: #2A2A2A;  /* Sidebar hover */
+  --color-brand-gray: #6B7280;        /* Muted text */
+  --color-brand-light: #F9FAFB;       /* Main background */
+}
+
+/* Add to global CSS or module CSS */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.hide-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+body {
+  font-family: var(--font-body);
+  color: #1a1a1a;
+  background-color: #ffffff;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+}
 
 @custom-variant dark (&:is(.dark *));
 
@@ -42,30 +79,7 @@
   --color-sidebar-ring: var(--brand-teal-8);
 }
 
-:root {
-  --radius: 0.625rem;
-  --page-bg: #f0f2f5;
-  --surface-white: #ffffff;
-  --text-primary: #0f1724;
-  --text-muted: #6b7280;
-  --brand-teal: #007a8a;
-  --brand-teal-8: rgba(0, 122, 138, 0.08);
-  --action-blue: #00aeef;
-  --success-green: #4caf50;
-  --canvas-gray: #f7f8fc;
-}
 
-.dark {
-  --page-bg: #0f1724;
-  --surface-white: #1e293b;
-  --text-primary: #ffffff;
-  --text-muted: #6b7280;
-  --brand-teal: #007a8a;
-  --brand-teal-8: rgba(0, 122, 138, 0.08);
-  --action-blue: #00aeef;
-  --success-green: #4caf50;
-  --canvas-gray: #1e293b;
-}
 
 @layer base {
   * {
@@ -75,3 +89,4 @@
     @apply bg-background text-foreground font-sans;
   }
 }
+
